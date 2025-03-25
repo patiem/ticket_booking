@@ -3,7 +3,7 @@ package epam.patiem.ticketbooking.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import epam.patiem.ticketbooking.model.UserAccount;
+import epam.patiem.ticketbooking.model.sql.UserAccount;
 import epam.patiem.ticketbooking.repository.UserAccountRepository;
 import epam.patiem.ticketbooking.repository.UserRepository;
 import epam.patiem.ticketbooking.service.UserAccountService;

@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import epam.patiem.ticketbooking.model.User;
+import epam.patiem.ticketbooking.model.sql.User;
 import epam.patiem.ticketbooking.repository.UserRepository;
 import epam.patiem.ticketbooking.service.UserService;
 

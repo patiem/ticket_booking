@@ -7,7 +7,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import epam.patiem.ticketbooking.facade.impl.BookingFacadeImpl;
-import epam.patiem.ticketbooking.model.Event;
+import epam.patiem.ticketbooking.model.sql.Event;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

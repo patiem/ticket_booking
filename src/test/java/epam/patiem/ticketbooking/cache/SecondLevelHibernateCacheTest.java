@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import epam.patiem.ticketbooking.model.Event;
+import epam.patiem.ticketbooking.model.sql.Event;
 import epam.patiem.ticketbooking.repository.EventRepository;
 import epam.patiem.ticketbooking.service.impl.EventServiceImpl;
 

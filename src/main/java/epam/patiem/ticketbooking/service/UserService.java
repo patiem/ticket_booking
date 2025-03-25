@@ -1,6 +1,6 @@
 package epam.patiem.ticketbooking.service;
 
-import epam.patiem.ticketbooking.model.User;
+import epam.patiem.ticketbooking.model.sql.User;
 
 import java.util.List;
 

@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
-import epam.patiem.ticketbooking.model.User;
+import epam.patiem.ticketbooking.model.sql.User;
 import epam.patiem.ticketbooking.repository.UserRepository;
 
 import java.util.Arrays;

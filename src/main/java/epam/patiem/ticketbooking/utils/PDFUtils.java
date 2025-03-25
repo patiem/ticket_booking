@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Component;
-import epam.patiem.ticketbooking.model.Ticket;
+import epam.patiem.ticketbooking.model.sql.Ticket;
 
 import java.io.IOException;
 import java.io.InputStream;

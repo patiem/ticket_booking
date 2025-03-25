@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import epam.patiem.ticketbooking.model.User;
+import epam.patiem.ticketbooking.model.sql.User;
 
 import java.util.Optional;
 

@@ -1,10 +1,10 @@
 package epam.patiem.ticketbooking.service.impl;
 
-import epam.patiem.ticketbooking.model.Category;
-import epam.patiem.ticketbooking.model.Event;
-import epam.patiem.ticketbooking.model.Ticket;
-import epam.patiem.ticketbooking.model.User;
-import epam.patiem.ticketbooking.model.UserAccount;
+import epam.patiem.ticketbooking.model.sql.Category;
+import epam.patiem.ticketbooking.model.sql.Event;
+import epam.patiem.ticketbooking.model.sql.Ticket;
+import epam.patiem.ticketbooking.model.sql.User;
+import epam.patiem.ticketbooking.model.sql.UserAccount;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
-import ua.epam.mishchenko.ticketbooking.model.*;
 import epam.patiem.ticketbooking.repository.EventRepository;
 import epam.patiem.ticketbooking.repository.TicketRepository;
 import epam.patiem.ticketbooking.repository.UserAccountRepository;

@@ -1,6 +1,6 @@
 package epam.patiem.ticketbooking.service;
 
-import epam.patiem.ticketbooking.model.Event;
+import epam.patiem.ticketbooking.model.sql.Event;
 
 import java.util.Date;
 import java.util.List;

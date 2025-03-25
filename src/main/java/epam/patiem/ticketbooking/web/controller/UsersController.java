@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import epam.patiem.ticketbooking.facade.impl.BookingFacadeImpl;
-import epam.patiem.ticketbooking.model.User;
+import epam.patiem.ticketbooking.model.sql.User;
 
 import java.util.HashMap;
 import java.util.List;

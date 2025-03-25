@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import epam.patiem.ticketbooking.model.Event;
+import epam.patiem.ticketbooking.model.sql.Event;
 import epam.patiem.ticketbooking.repository.EventRepository;
 import epam.patiem.ticketbooking.service.EventService;
 

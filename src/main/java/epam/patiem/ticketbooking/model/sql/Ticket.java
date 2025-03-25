@@ -1,4 +1,4 @@
-package epam.patiem.ticketbooking.model;
+package epam.patiem.ticketbooking.model.sql;
 
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 

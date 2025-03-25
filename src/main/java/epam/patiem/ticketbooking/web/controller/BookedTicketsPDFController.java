@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import epam.patiem.ticketbooking.facade.impl.BookingFacadeImpl;
-import epam.patiem.ticketbooking.model.Ticket;
-import epam.patiem.ticketbooking.model.User;
+import epam.patiem.ticketbooking.model.sql.Ticket;
+import epam.patiem.ticketbooking.model.sql.User;
 import epam.patiem.ticketbooking.utils.PDFUtils;
 
 import java.nio.file.Path;

@@ -1,9 +1,9 @@
 package epam.patiem.ticketbooking.service;
 
-import epam.patiem.ticketbooking.model.Category;
-import epam.patiem.ticketbooking.model.Event;
-import epam.patiem.ticketbooking.model.Ticket;
-import epam.patiem.ticketbooking.model.User;
+import epam.patiem.ticketbooking.model.sql.Category;
+import epam.patiem.ticketbooking.model.sql.Event;
+import epam.patiem.ticketbooking.model.sql.Ticket;
+import epam.patiem.ticketbooking.model.sql.User;
 
 import java.util.List;
 

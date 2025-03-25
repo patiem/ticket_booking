@@ -7,11 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
-import epam.patiem.ticketbooking.model.Category;
-import epam.patiem.ticketbooking.model.Event;
-import epam.patiem.ticketbooking.model.Ticket;
-import epam.patiem.ticketbooking.model.User;
-import epam.patiem.ticketbooking.model.UserAccount;
+import epam.patiem.ticketbooking.model.sql.Category;
+import epam.patiem.ticketbooking.model.sql.Event;
+import epam.patiem.ticketbooking.model.sql.Ticket;
+import epam.patiem.ticketbooking.model.sql.User;
+import epam.patiem.ticketbooking.model.sql.UserAccount;
 import epam.patiem.ticketbooking.repository.UserAccountRepository;
 
 import java.math.BigDecimal;
