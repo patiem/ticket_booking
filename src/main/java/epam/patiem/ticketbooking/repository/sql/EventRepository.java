@@ -1,18 +1,19 @@
-package epam.patiem.ticketbooking.repository;
+package epam.patiem.ticketbooking.repository.sql;
 
-import epam.patiem.ticketbooking.model.Event;
-import org.bson.types.ObjectId;
+import epam.patiem.ticketbooking.model.sql.Event;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 
 @Repository
-public interface EventRepository extends MongoRepository<Event, ObjectId> {
+public interface EventRepository extends CrudRepository<Event, Long> {
 
     Page<Event> getAllByTitle(Pageable pageable, String title);
+
     Page<Event> getAllByDate(Pageable pageable, Date day);
+
     Boolean existsByTitleAndDate(String title, Date date);
 }

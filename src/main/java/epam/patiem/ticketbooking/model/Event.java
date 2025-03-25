@@ -1,4 +1,4 @@
-package epam.patiem.ticketbooking.model.mongo;
+package epam.patiem.ticketbooking.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.DBRef;
