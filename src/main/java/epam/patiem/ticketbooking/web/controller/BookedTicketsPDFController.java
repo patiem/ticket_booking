@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import epam.patiem.ticketbooking.facade.impl.BookingFacadeImpl;
-import epam.patiem.ticketbooking.model.sql.Ticket;
-import epam.patiem.ticketbooking.model.sql.User;
+import epam.patiem.ticketbooking.model.Ticket;
+import epam.patiem.ticketbooking.model.User;
 import epam.patiem.ticketbooking.utils.PDFUtils;
 
 import java.nio.file.Path;
@@ -37,7 +37,7 @@ public class BookedTicketsPDFController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<Object> getBookedTicketsByUserPDF(@PathVariable long userId,
+    public ResponseEntity<Object> getBookedTicketsByUserPDF(@PathVariable String userId,
                                                             @RequestParam int pageSize,
                                                             @RequestParam int pageNum) {
         log.info("Showing the tickets by user with id: {}", userId);
@@ -50,7 +50,7 @@ public class BookedTicketsPDFController {
         return createResponseEntityWithPDFDocument(bookedTickets);
     }
 
-    private User getUserById(long userId) {
+    private User getUserById(String userId) {
         User userById = bookingFacade.getUserById(userId);
         if (isNull(userById)) {
             log.info("Can not to find a user by id: {}", userId);
@@ -59,7 +59,7 @@ public class BookedTicketsPDFController {
         return userById;
     }
 
-    private List<Ticket> getBookedTickets(long userId, int pageSize, int pageNum, User userById) {
+    private List<Ticket> getBookedTickets(String userId, int pageSize, int pageNum, User userById) {
         List<Ticket> bookedTickets = bookingFacade.getBookedTickets(userById, pageSize, pageNum);
         if (bookedTickets.isEmpty()) {
             log.info("Can not to find the tickets by user with id: {}", userId);

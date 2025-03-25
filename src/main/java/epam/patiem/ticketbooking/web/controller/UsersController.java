@@ -1,5 +1,6 @@
 package epam.patiem.ticketbooking.web.controller;
 
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import epam.patiem.ticketbooking.facade.impl.BookingFacadeImpl;
-import epam.patiem.ticketbooking.model.sql.User;
+import epam.patiem.ticketbooking.model.User;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +32,7 @@ public class UsersController {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView showUserById(@PathVariable long id) {
+    public ModelAndView showUserById(@PathVariable String id) {
         log.info("Showing user by id: {}", id);
         Map<String, Object> model = new HashMap<>();
         User userById = bookingFacade.getUserById(id);
@@ -106,7 +107,7 @@ public class UsersController {
     }
 
     @PutMapping
-    public ModelAndView updateUser(@RequestParam long id,
+    public ModelAndView updateUser(@RequestParam String id,
                                    @RequestParam String name,
                                    @RequestParam String email) {
         log.info("Updating user with id: {}", id);
@@ -122,14 +123,14 @@ public class UsersController {
         return new ModelAndView("user", model);
     }
 
-    private User createUserEntityWithId(long id, String name, String email) {
+    private User createUserEntityWithId(String id, String name, String email) {
         User user = createUserEntityWithoutId(name, email);
-        user.setId(id);
+        user.setId(new ObjectId(String.valueOf(id)));
         return user;
     }
 
     @DeleteMapping("/{id}")
-    public ModelAndView deleteUser(@PathVariable long id) {
+    public ModelAndView deleteUser(@PathVariable String id) {
         log.info("Deleting the user with id: {}", id);
         Map<String, Object> model = new HashMap<>();
         boolean isUserRemoved = bookingFacade.deleteUser(id);

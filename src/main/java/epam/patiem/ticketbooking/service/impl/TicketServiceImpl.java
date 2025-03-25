@@ -1,5 +1,6 @@
 package epam.patiem.ticketbooking.service.impl;
 
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -8,11 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import epam.patiem.ticketbooking.model.sql.Category;
-import epam.patiem.ticketbooking.model.sql.Event;
-import epam.patiem.ticketbooking.model.sql.Ticket;
-import epam.patiem.ticketbooking.model.sql.User;
-import epam.patiem.ticketbooking.model.sql.UserAccount;
+import epam.patiem.ticketbooking.model.Category;
+import epam.patiem.ticketbooking.model.Event;
+import epam.patiem.ticketbooking.model.Ticket;
+import epam.patiem.ticketbooking.model.User;
+import epam.patiem.ticketbooking.model.UserAccount;
 import epam.patiem.ticketbooking.repository.EventRepository;
 import epam.patiem.ticketbooking.repository.TicketRepository;
 import epam.patiem.ticketbooking.repository.UserAccountRepository;
@@ -30,11 +31,8 @@ public class TicketServiceImpl implements TicketService {
     private static final Logger log = LoggerFactory.getLogger(TicketServiceImpl.class);
 
     private final UserRepository userRepository;
-
     private final EventRepository eventRepository;
-
     private final TicketRepository ticketRepository;
-
     private final UserAccountRepository userAccountRepository;
 
     public TicketServiceImpl(UserRepository userRepository, EventRepository eventRepository,
@@ -47,7 +45,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public Ticket bookTicket(long userId, long eventId, int place, Category category) {
+    public Ticket bookTicket(String userId, String eventId, int place, Category category) {
         log.info("Start booking a ticket for user with id {}, event with id event {}, place {}, category {}",
                 userId, eventId, place, category);
         try {
@@ -61,7 +59,7 @@ public class TicketServiceImpl implements TicketService {
         }
     }
 
-    private Ticket processBookingTicket(long userId, long eventId, int place, Category category) {
+    private Ticket processBookingTicket(String userId, String eventId, int place, Category category) {
         throwRuntimeExceptionIfUserNotExist(userId);
         throwRuntimeExceptionIfEventNotExist(eventId);
         throwRuntimeExceptionIfTicketAlreadyBooked(eventId, place, category);
@@ -74,7 +72,7 @@ public class TicketServiceImpl implements TicketService {
         return ticket;
     }
 
-    private Ticket saveBookedTicket(long userId, long eventId, int place, Category category) {
+    private Ticket saveBookedTicket(String userId, String eventId, int place, Category category) {
         return ticketRepository.save(createNewTicket(userId, eventId, place, category));
     }
 
@@ -95,30 +93,30 @@ public class TicketServiceImpl implements TicketService {
         }
     }
 
-    private void throwRuntimeExceptionIfTicketAlreadyBooked(long eventId, int place, Category category) {
-        if (ticketRepository.existsByEventIdAndPlaceAndCategory(eventId, place, category)) {
+    private void throwRuntimeExceptionIfTicketAlreadyBooked(String eventId, int place, Category category) {
+        if (ticketRepository.existsByEventIdAndPlaceAndCategory(new ObjectId(String.valueOf(eventId)), place, category)) {
             throw new RuntimeException("This ticket already booked");
         }
     }
 
-    private Event getEvent(long eventId) {
-        return eventRepository.findById(eventId)
+    private Event getEvent(String eventId) {
+        return eventRepository.findById(new ObjectId(String.valueOf(eventId)))
                 .orElseThrow(() -> new RuntimeException("Can not to find an event by id: " + eventId));
     }
 
-    private UserAccount getUserAccount(long userId) {
-        return userAccountRepository.findByUserId(userId)
+    private UserAccount getUserAccount(String userId) {
+        return userAccountRepository.findByUserId(new ObjectId(String.valueOf(userId)))
                 .orElseThrow(() -> new RuntimeException("Can not to find a user account by user id: " + userId));
     }
 
-    private void throwRuntimeExceptionIfEventNotExist(long eventId) {
-        if (!eventRepository.existsById(eventId)) {
+    private void throwRuntimeExceptionIfEventNotExist(String eventId) {
+        if (!eventRepository.existsById(new ObjectId(String.valueOf(eventId)))) {
             throw new RuntimeException("The event with id " + eventId + " does not exist");
         }
     }
 
-    private void throwRuntimeExceptionIfUserNotExist(long userId) {
-        if (!userRepository.existsById(userId)) {
+    private void throwRuntimeExceptionIfUserNotExist(String userId) {
+        if (!userRepository.existsById(new ObjectId(String.valueOf(userId)))) {
             throw new RuntimeException("The user with id " + userId + " does not exist");
         }
     }
@@ -127,9 +125,9 @@ public class TicketServiceImpl implements TicketService {
         return userAccount.getMoney().compareTo(event.getTicketPrice()) > -1;
     }
 
-    private Ticket createNewTicket(long userId, long eventId, int place, Category category) {
-        User user = userRepository.findById(userId).get();
-        Event event = eventRepository.findById(eventId).get();
+    private Ticket createNewTicket(String userId, String eventId, int place, Category category) {
+        User user = userRepository.findById(new ObjectId(String.valueOf(userId))).get();
+        Event event = eventRepository.findById(new ObjectId(String.valueOf(eventId))).get();
         return new Ticket(user, event, place, category);
     }
 
@@ -189,10 +187,10 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public boolean cancelTicket(long ticketId) {
+    public boolean cancelTicket(String ticketId) {
         log.info("Start canceling a ticket with id: {}", ticketId);
         try {
-            ticketRepository.deleteById(ticketId);
+            ticketRepository.deleteById(new ObjectId(String.valueOf(ticketId)));
             log.info("Successfully canceling of the ticket with id: {}", ticketId);
             return true;
         } catch (RuntimeException e) {

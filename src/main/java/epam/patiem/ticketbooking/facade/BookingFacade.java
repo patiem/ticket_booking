@@ -1,9 +1,10 @@
 package epam.patiem.ticketbooking.facade;
 
-import epam.patiem.ticketbooking.model.sql.Category;
-import epam.patiem.ticketbooking.model.sql.Event;
-import epam.patiem.ticketbooking.model.sql.Ticket;
-import epam.patiem.ticketbooking.model.sql.User;
+import epam.patiem.ticketbooking.model.Category;
+import epam.patiem.ticketbooking.model.Event;
+import epam.patiem.ticketbooking.model.Ticket;
+import epam.patiem.ticketbooking.model.User;
+import java.lang.String;
 
 import java.util.Date;
 import java.util.List;
@@ -14,36 +15,21 @@ import java.util.List;
  */
 public interface BookingFacade {
 
-    Event getEventById(long eventId);
-
+    Event getEventById(String eventId);
     List<Event> getEventsByTitle(String title, int pageSize, int pageNum);
-
     List<Event> getEventsForDay(Date day, int pageSize, int pageNum);
-
     Event createEvent(Event event);
-
     Event updateEvent(Event event);
-
-    boolean deleteEvent(long eventId);
-
-    User getUserById(long userId);
-
+    boolean deleteEvent(String eventId);
+    User getUserById(String userId);
     User getUserByEmail(String email);
-
     List<User> getUsersByName(String name, int pageSize, int pageNum);
-
     User createUser(User user);
-
     User updateUser(User user);
-
-    boolean deleteUser(long userId);
-
-    Ticket bookTicket(long userId, long eventId, int place, Category category);
-
+    boolean deleteUser(String userId);
+    Ticket bookTicket(String userId, String eventId, int place, Category category);
     List<Ticket> getBookedTickets(User user, int pageSize, int pageNum);
-
     List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum);
-
-    boolean cancelTicket(long ticketId);
+    boolean cancelTicket(String ticketId);
 
 }

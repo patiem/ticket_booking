@@ -1,5 +1,6 @@
 package epam.patiem.ticketbooking.web.controller;
 
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import epam.patiem.ticketbooking.facade.impl.BookingFacadeImpl;
-import epam.patiem.ticketbooking.model.sql.Event;
+import epam.patiem.ticketbooking.model.Event;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -33,7 +34,7 @@ public class EventsController {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView showEventById(@PathVariable long id) {
+    public ModelAndView showEventById(@PathVariable String id) {
         log.info("Showing event by id: {}", id);
         Event eventById = bookingFacade.getEventById(id);
         Map<String, Object> model = new HashMap<>();
@@ -131,7 +132,7 @@ public class EventsController {
     }
 
     @PutMapping
-    public ModelAndView updateEvent(@RequestParam long id,
+    public ModelAndView updateEvent(@RequestParam String id,
                                     @RequestParam String title,
                                     @RequestParam String day,
                                     @RequestParam BigDecimal price) {
@@ -153,14 +154,14 @@ public class EventsController {
         return new ModelAndView("event", model);
     }
 
-    private Event createEventEntityWithId(long id, String title, String day, BigDecimal price) {
+    private Event createEventEntityWithId(String id, String title, String day, BigDecimal price) {
         Event eventEntity = createEventEntityWithoutId(title, day, price);
-        eventEntity.setId(id);
+        eventEntity.setId(new ObjectId(String.valueOf(id)));
         return eventEntity;
     }
 
     @DeleteMapping("/{id}")
-    public ModelAndView deleteEvent(@PathVariable long id) {
+    public ModelAndView deleteEvent(@PathVariable String id) {
         log.info("Deleting an event with id: {}", id);
         Map<String, Object> model = new HashMap<>();
         boolean isEventDeleted = bookingFacade.deleteEvent(id);

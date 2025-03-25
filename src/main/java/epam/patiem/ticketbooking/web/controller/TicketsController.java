@@ -1,5 +1,6 @@
 package epam.patiem.ticketbooking.web.controller;
 
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -11,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import epam.patiem.ticketbooking.facade.impl.BookingFacadeImpl;
-import epam.patiem.ticketbooking.model.sql.Category;
-import epam.patiem.ticketbooking.model.sql.Event;
-import epam.patiem.ticketbooking.model.sql.Ticket;
-import epam.patiem.ticketbooking.model.sql.User;
+import epam.patiem.ticketbooking.model.Category;
+import epam.patiem.ticketbooking.model.Event;
+import epam.patiem.ticketbooking.model.Ticket;
+import epam.patiem.ticketbooking.model.User;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,8 +34,8 @@ public class TicketsController {
     }
 
     @PostMapping
-    public ModelAndView bookTicket(@RequestParam long userId,
-                                   @RequestParam long eventId,
+    public ModelAndView bookTicket(@RequestParam String userId,
+                                   @RequestParam String eventId,
                                    @RequestParam int place,
                                    @RequestParam Category category) {
         log.info("Booking a ticket: userId={}, eventId={}, place={}, category={}", userId, eventId, place, category);
@@ -56,7 +57,7 @@ public class TicketsController {
     }
 
     @GetMapping("/user/{userId}")
-    public ModelAndView showTicketsByUser(@PathVariable long userId,
+    public ModelAndView showTicketsByUser(@PathVariable String userId,
                                           @RequestParam int pageSize,
                                           @RequestParam int pageNum) {
         log.info("Showing the tickets by user with id: {}", userId);
@@ -79,7 +80,7 @@ public class TicketsController {
     }
 
     @GetMapping("/event/{eventId}")
-    public ModelAndView showTicketsByEvent(@PathVariable long eventId,
+    public ModelAndView showTicketsByEvent(@PathVariable String eventId,
                                            @RequestParam int pageSize,
                                            @RequestParam int pageNum) {
         log.info("Showing the tickets by event with id: {}", eventId);
@@ -102,7 +103,7 @@ public class TicketsController {
     }
 
     @DeleteMapping("/{id}")
-    public ModelAndView cancelTicket(@PathVariable long id) {
+    public ModelAndView cancelTicket(@PathVariable String id) {
         log.info("Canceling ticket with id: {}", id);
         Map<String, Object> model = new HashMap<>();
         boolean isTicketCanceled = bookingFacade.cancelTicket(id);

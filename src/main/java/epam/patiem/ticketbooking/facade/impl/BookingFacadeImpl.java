@@ -1,12 +1,13 @@
 package epam.patiem.ticketbooking.facade.impl;
 
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 import epam.patiem.ticketbooking.facade.BookingFacade;
-import epam.patiem.ticketbooking.model.sql.Category;
-import epam.patiem.ticketbooking.model.sql.Event;
-import epam.patiem.ticketbooking.model.sql.Ticket;
-import epam.patiem.ticketbooking.model.sql.User;
-import epam.patiem.ticketbooking.model.sql.UserAccount;
+import epam.patiem.ticketbooking.model.Category;
+import epam.patiem.ticketbooking.model.Event;
+import epam.patiem.ticketbooking.model.Ticket;
+import epam.patiem.ticketbooking.model.User;
+import epam.patiem.ticketbooking.model.UserAccount;
 import epam.patiem.ticketbooking.service.EventService;
 import epam.patiem.ticketbooking.service.TicketService;
 import epam.patiem.ticketbooking.service.UserAccountService;
@@ -23,7 +24,6 @@ public class BookingFacadeImpl implements BookingFacade {
     private final TicketService ticketService;
     private final UserService userService;
 
-
     private final UserAccountService userAccountService;
     public BookingFacadeImpl(EventService eventService, UserService userService, TicketService ticketService,
                              UserAccountService userAccountService) {
@@ -34,7 +34,7 @@ public class BookingFacadeImpl implements BookingFacade {
     }
 
     @Override
-    public Event getEventById(long eventId) {
+    public Event getEventById(String eventId) {
         return eventService.getEventById(eventId);
     }
 
@@ -48,14 +48,10 @@ public class BookingFacadeImpl implements BookingFacade {
         return eventService.getEventsForDay(day, pageSize, pageNum);
     }
 
-
-
     @Override
     public Event createEvent(Event event) {
         return eventService.createEvent(event);
     }
-
-
 
     @Override
     public Event updateEvent(Event event) {
@@ -63,12 +59,12 @@ public class BookingFacadeImpl implements BookingFacade {
     }
 
     @Override
-    public boolean deleteEvent(long eventId) {
+    public boolean deleteEvent(String eventId) {
         return eventService.deleteEvent(eventId);
     }
 
     @Override
-    public User getUserById(long userId) {
+    public User getUserById(String userId) {
         return userService.getUserById(userId);
     }
 
@@ -93,12 +89,12 @@ public class BookingFacadeImpl implements BookingFacade {
     }
 
     @Override
-    public boolean deleteUser(long userId) {
+    public boolean deleteUser(String userId) {
         return userService.deleteUser(userId);
     }
 
     @Override
-    public Ticket bookTicket(long userId, long eventId, int place, Category category) {
+    public Ticket bookTicket(String userId, String eventId, int place, Category category) {
         return ticketService.bookTicket(userId, eventId, place, category);
     }
 
@@ -113,11 +109,11 @@ public class BookingFacadeImpl implements BookingFacade {
     }
 
     @Override
-    public boolean cancelTicket(long ticketId) {
+    public boolean cancelTicket(String ticketId) {
         return ticketService.cancelTicket(ticketId);
     }
 
-    public UserAccount refillUserAccount(long userId, BigDecimal money) {
+    public UserAccount refillUserAccount(String userId, BigDecimal money) {
         return userAccountService.refillAccount(userId, money);
     }
 }

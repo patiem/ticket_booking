@@ -7,11 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
-import epam.patiem.ticketbooking.model.sql.Category;
-import epam.patiem.ticketbooking.model.sql.Event;
-import epam.patiem.ticketbooking.model.sql.Ticket;
-import epam.patiem.ticketbooking.model.sql.User;
-import epam.patiem.ticketbooking.model.sql.UserAccount;
+import epam.patiem.ticketbooking.model.Category;
+import epam.patiem.ticketbooking.model.Event;
+import epam.patiem.ticketbooking.model.Ticket;
+import epam.patiem.ticketbooking.model.User;
+import epam.patiem.ticketbooking.model.UserAccount;
 import epam.patiem.ticketbooking.repository.UserAccountRepository;
 
 import java.math.BigDecimal;
@@ -44,17 +44,17 @@ public class BookingFacadeImplTest {
 
         user = bookingFacade.createUser(user);
 
-        assertNotNull(bookingFacade.getUserById(user.getId()));
+        assertNotNull(bookingFacade.getUserById(user.getId().toString()));
 
         event = bookingFacade.createEvent(event);
 
-        assertNotNull(bookingFacade.getEventById(event.getId()));
+        assertNotNull(bookingFacade.getEventById(event.getId().toString()));
 
-        UserAccount userAccount = bookingFacade.refillUserAccount(user.getId(), BigDecimal.valueOf(500));
+        UserAccount userAccount = bookingFacade.refillUserAccount(user.getId().toString(), BigDecimal.valueOf(500));
 
         assertEquals(BigDecimal.valueOf(500), userAccount.getMoney());
 
-        Ticket ticket = bookingFacade.bookTicket(user.getId(), event.getId(), place, Category.STANDARD);
+        Ticket ticket = bookingFacade.bookTicket(user.getId().toString(), event.getId().toString(), place, Category.STANDARD);
 
         assertEquals(250, userAccountRepository.findById(user.getId()).get().getMoney().intValue());
 
@@ -64,7 +64,7 @@ public class BookingFacadeImplTest {
         assertTrue(bookedTicketsByUserBeforeCanceling.contains(ticket));
         assertTrue(bookedTicketsByEventBeforeCanceling.contains(ticket));
 
-        bookingFacade.cancelTicket(ticket.getId());
+        bookingFacade.cancelTicket(ticket.getId().toString());
 
         List<Ticket> bookedTicketsByUserAfterCanceling = bookingFacade.getBookedTickets(user, 1, 1);
         List<Ticket> bookedTicketsByEventAfterCanceling = bookingFacade.getBookedTickets(event, 1, 1);
@@ -75,15 +75,15 @@ public class BookingFacadeImplTest {
 
     @Test
     public void refillUserAccountAndBookTicketWithNotExistingUserAccountShouldBeOk() {
-        long userId = 5;
-        long eventId = 1;
+        String userId = "abc";
+        String eventId = "def";
         int place = 5;
         Category category = Category.BAR;
         BigDecimal money = BigDecimal.valueOf(5000);
 
         UserAccount userAccount = bookingFacade.refillUserAccount(userId, money);
 
-        assertEquals(Long.valueOf(userId), userAccount.getUser().getId());
+        assertEquals(userId, userAccount.getUser().getId());
         assertEquals(money, userAccount.getMoney());
 
         Ticket ticket = bookingFacade.bookTicket(userId, eventId, place, category);

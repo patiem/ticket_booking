@@ -1,11 +1,12 @@
 package epam.patiem.ticketbooking.service.impl;
 
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import epam.patiem.ticketbooking.model.sql.Event;
+import epam.patiem.ticketbooking.model.Event;
 import epam.patiem.ticketbooking.repository.EventRepository;
 import epam.patiem.ticketbooking.service.EventService;
 
@@ -26,10 +27,10 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event getEventById(long eventId) {
+    public Event getEventById(String eventId) {
         log.info("Finding an event by id: {}", eventId);
         try {
-            Event event = eventRepository.findById(eventId)
+            Event event = eventRepository.findById(new ObjectId(String.valueOf(eventId)))
                     .orElseThrow(() -> new RuntimeException("Can not to find an event by id: " + eventId));
             log.info("Event with id {} successfully found ", eventId);
             return event;
@@ -142,10 +143,10 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public boolean deleteEvent(long eventId) {
+    public boolean deleteEvent(String eventId) {
         log.info("Start deleting an event with id: {}", eventId);
         try {
-            eventRepository.deleteById(eventId);
+            eventRepository.deleteById(new ObjectId(String.valueOf(eventId)));
             log.info("Successfully deletion of the event with id: {}", eventId);
             return true;
         } catch (RuntimeException e) {

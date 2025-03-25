@@ -1,11 +1,12 @@
 package epam.patiem.ticketbooking.service.impl;
 
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import epam.patiem.ticketbooking.model.sql.User;
+import epam.patiem.ticketbooking.model.User;
 import epam.patiem.ticketbooking.repository.UserRepository;
 import epam.patiem.ticketbooking.service.UserService;
 
@@ -24,10 +25,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(long userId) {
+    public User getUserById(String userId) {
         log.info("Finding a user by id: {}", userId);
         try {
-            User user = userRepository.findById(userId)
+            User user = userRepository.findById(new ObjectId(String.valueOf(userId)))
                     .orElseThrow(() -> new RuntimeException("Can not to get a user by id: " + userId));
             log.info("The user with id {} successfully found ", userId);
             return user;
@@ -132,10 +133,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteUser(long userId) {
+    public boolean deleteUser(String userId) {
         log.info("Start deleting an user with id: {}", userId);
         try {
-            userRepository.deleteById(userId);
+            userRepository.deleteById(new ObjectId(String.valueOf(userId)));
             log.info("Successfully deletion of the user with id: {}", userId);
             return true;
         } catch (RuntimeException e) {
